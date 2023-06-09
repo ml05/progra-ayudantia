@@ -2,9 +2,56 @@
 #include <iostream>
 using namespace std;
 
-// se pone todo en el main
-// se nota que puede ser ordenado en funciones
-// hare las funciones en otro archivo cineVergara-orden.cpp
+// se pone todo en funciones
+// las escribire con CONTRATO!
+
+// imprimir butacas
+// recibe la fila, y el largo de la fila (columnas)
+// no retorna un valor (void) ya que imprime en pantalla
+void imprimirFila(int fila[], int columna){
+    for(int j=0; j<columna; j++){
+        char butaca = ' ';
+        // si el butaca es 1 significa que esta ocupado
+        if(fila[j]==1){
+            butaca = 'x';
+        }
+        // si no es 1 (igual a 0) significa que esta disponible
+        else{
+            butaca = '-';
+        }
+        cout << butaca << " ";
+    }
+}
+
+// ocupar el asiento
+// recibe la fila y columna de donde se debe ver si el asiento esta ocupado (1) o vacio (0)
+// si es 0, se cambia por un 1
+// como solo cambia valores de la matriz, no retorna valores
+void ocuparAsiento(int fila[], int columna){
+    if(fila[columna] == 0){
+        fila[columna] = 1;
+        cout << endl << "Asiento comprado correctamente";
+    }
+    else{
+        cout << endl << "El asiento esta ocupado!" << endl;
+    }
+}
+
+// se determina si queda al menos un asiento en la fila
+// retorna un valor true cuando encuentra un asiento vacio
+// se debe repetir para cada fila
+bool quedanAsientos(int fila[], int columna){
+    for(int j=0; j<columna; j++){
+        if(fila[j] == 0){
+            // apenas encuentra uno, retorna
+            return true;
+        }
+    }
+    // paso todo el ciclo sin encontrar un asiento vacio
+    return false;
+}
+
+
 int main(){
     // esta conformado por dos pisos
     int piso1[30][20];
@@ -39,19 +86,8 @@ int main(){
             cin >> fila;
             // aca estoy asumiendo que la fila se encuentra en el rango 0-29 (recordar que no puede llegar  a 30 o se sale de la matriz)
             // aca se debe imprimir la lista de asientos de la fila
-            // SE PUEDE USAR UNA FUNCION!
-            for(int j=0; j<30; j++){
-                char butaca = ' ';
-                // si el butaca es 1 significa que esta ocupado
-                if(piso1[fila][j]==1){
-                    butaca = 'x';
-                }
-                // si no es 1 (igual a 0) significa que esta disponible
-                else{
-                    butaca = '-';
-                }
-                cout << butaca << " ";
-            }
+            // SE REEMPLAZA CON FUNCION!
+            imprimirFila(piso1[fila], 20);
 
             // ya se mostro la fila de indicada
             // ahora se debe pedir el asiento
@@ -61,22 +97,14 @@ int main(){
 
             // se debe comprobar que no este siendo usado
             // aca el asiento esta vacio (=0)
-            // SE PUEDE USAR UNA FUNCION!
-            if(piso1[fila][asiento] == 0){
-                piso1[fila][asiento] = 1;
-                cout << endl << "Asiento comprado correctamente";
-            }
-            else{
-                cout << endl << "El asiento esta ocupado!" << endl;
-            }
+            // SE REEMPLAZA CON FUNCION!
+            ocuparAsiento(piso1[fila], asiento);
 
             // comprobar si queda al menos un asiento
             // SE PUEDE USAR UNA FUNCION!
             for(int i=0; i<30; i++){
-                for(int j=0; j<20; j++){
-                    if(piso1[i][j] == 0){
-                        pisoLleno = true;
-                    }
+                if(!quedanAsientos(piso1[i], 20)){
+                    pisoLleno = true;
                 }
             }
             // todo ese codigo fue solo para el piso 1
